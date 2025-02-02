@@ -90,6 +90,9 @@ To make parsing HTML faster, I've also added two popular parsing packages to Ste
 
 ```
 $ pip install stealth_requests[parsers]
+
+# Some shells, like zsh on macOS, require wrapping with quotes:
+$ pip install 'stealth_requests[parsers]'
 ```
 
 To easily get an Lxml tree, you can use `resp.tree()` and to get a BeautifulSoup object, use the `resp.soup()` method.
