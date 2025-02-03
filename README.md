@@ -89,9 +89,6 @@ print(resp.meta.title)
 To make parsing HTML faster, I've also added two popular parsing packages to Stealth-Requests - Lxml and BeautifulSoup4. To use these add-ons you need to install the `parsers` extra: 
 
 ```
-$ pip install stealth_requests[parsers]
-
-# Some shells, like zsh on macOS, require wrapping with quotes:
 $ pip install 'stealth_requests[parsers]'
 ```
 
