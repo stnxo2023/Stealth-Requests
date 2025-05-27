@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "stealth-requests"
-version = "1.2.1"
+version = "1.2.2"
 description = "Undetected Web-Scraping & Seamless HTML Parsing in Python!"
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"
