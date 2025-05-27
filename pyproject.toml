@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "stealth-requests"
 version = "1.2.1"
-description = "Make HTTP requests exactly like a browser."
+description = "Undetected Web-Scraping & Seamless HTML Parsing in Python!"
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -29,3 +29,12 @@ include = ["stealth_requests"]
 
 [tool.setuptools.package-data]
 stealth_requests = ["profiles.json"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["I", "TID"]
+
+[tool.ruff.format]
+quote-style = "single"

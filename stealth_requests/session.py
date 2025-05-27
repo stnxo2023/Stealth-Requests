@@ -13,11 +13,7 @@ from curl_cffi.requests.session import Session, AsyncSession
 from curl_cffi.requests.models import Response
 
 
-SUPPORTED_IMAGE_EXTENSIONS = [
-    'jpeg', 'jpg', 'png', 'gif', 
-    'bmp', 'webp', 'ico', 'svg', 
-    'tiff', 'heic', 'heif'
-]
+SUPPORTED_IMAGE_EXTENSIONS = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'webp', 'ico', 'svg', 'tiff', 'heic', 'heif']
 CSS_EXTENSION = 'css'
 
 CHROME_MEDIA_TYPES = {
@@ -41,12 +37,7 @@ class ClientProfile:
 
 
 class BaseStealthSession:
-    def __init__(
-            self, 
-            client_profile: str = None,
-            impersonate: str = 'chrome124', 
-            **kwargs
-        ):
+    def __init__(self, client_profile: str = None, impersonate: str = 'chrome124', **kwargs):
         if impersonate.lower() in ('chrome', 'chrome124'):
             impersonate = 'chrome124'
             self.media_type_sets = CHROME_MEDIA_TYPES
@@ -57,15 +48,15 @@ class BaseStealthSession:
 
         self.profile = client_profile or BaseStealthSession.create_profile(impersonate)
         self.last_request_url = defaultdict(lambda: 'https://www.google.com/')
-        
+
         super().__init__(
-            headers=self.initialize_chrome_headers() 
-                if impersonate == 'chrome124' 
-                else self.initialize_safari_headers(),
-            impersonate=impersonate, 
-            **kwargs
+            headers=self.initialize_chrome_headers()
+            if impersonate == 'chrome124'
+            else self.initialize_safari_headers(),
+            impersonate=impersonate,
+            **kwargs,
         )
-    
+
     @staticmethod
     def create_profile(impersonate: str) -> ClientProfile:
         file_path = os.path.join(os.path.dirname(__file__), 'profiles.json')
@@ -77,41 +68,43 @@ class BaseStealthSession:
 
         return ClientProfile(
             user_agent=random.choice(user_agents[impersonate]),
-            sec_ch_ua='"Not A;Brand";v="99", "Chromium";v="124", "Google Chrome";v="124"' if impersonate == 'chrome_124' else None,
+            sec_ch_ua='"Not A;Brand";v="99", "Chromium";v="124", "Google Chrome";v="124"'
+            if impersonate == 'chrome_124'
+            else None,
             sec_ch_ua_mobile='?0' if impersonate == 'chrome_124' else None,
-            sec_ch_ua_platform='"macOS"' if impersonate == 'chrome_124' else None
+            sec_ch_ua_platform='"macOS"' if impersonate == 'chrome_124' else None,
         )
-        
+
     def initialize_chrome_headers(self) -> dict[str, str]:
         return {
-            "Accept-Encoding": "gzip, deflate, br, zstd",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "Pragma": "no-cache",
-            "Upgrade-Insecure-Requests": "1",
-            "User-Agent": self.profile.user_agent,
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "same-origin",
-            "Sec-Fetch-User": "?1",
-            "sec-ch-ua": self.profile.sec_ch_ua,
-            "sec-ch-ua-mobile": self.profile.sec_ch_ua_mobile,
-            "sec-ch-ua-platform": self.profile.sec_ch_ua_platform,
-        } 
+            'Accept-Encoding': 'gzip, deflate, br, zstd',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'Pragma': 'no-cache',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': self.profile.user_agent,
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'same-origin',
+            'Sec-Fetch-User': '?1',
+            'sec-ch-ua': self.profile.sec_ch_ua,
+            'sec-ch-ua-mobile': self.profile.sec_ch_ua_mobile,
+            'sec-ch-ua-platform': self.profile.sec_ch_ua_platform,
+        }
 
     def initialize_safari_headers(self) -> dict[str, str]:
         return {
-            "Accept-Encoding": "gzip, deflate, br",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "Pragma": "no-cache",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "same-origin",
-            "User-Agent": self.profile.user_agent
-        } 
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'Pragma': 'no-cache',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'same-origin',
+            'User-Agent': self.profile.user_agent,
+        }
 
     def get_media_types(self, url: str) -> str:
         path = Path(urlparse(url).path)
@@ -129,11 +122,7 @@ class BaseStealthSession:
         parsed_url = urlparse(url)
         host = parsed_url.netloc
 
-        headers = {
-            "Accept": self.get_media_types(url),
-            "Host": host,
-            "Referer": self.last_request_url[host]
-        }
+        headers = {'Accept': self.get_media_types(url), 'Host': host, 'Referer': self.last_request_url[host]}
 
         self.last_request_url[host] = url
         return headers
@@ -147,14 +136,15 @@ class StealthSession(BaseStealthSession, Session):
         headers = self.get_dynamic_headers(url) | kwargs.pop('headers', {})
         resp = Session.request(self, method, url, *args, headers=headers, **kwargs)
         return StealthResponse(resp)
-    
-    head = partialmethod(request, "HEAD")
-    get = partialmethod(request, "GET")
-    post = partialmethod(request, "POST")
-    put = partialmethod(request, "PUT")
-    patch = partialmethod(request, "PATCH")
-    delete = partialmethod(request, "DELETE")
-    options = partialmethod(request, "OPTIONS")
+
+    head = partialmethod(request, 'HEAD')
+    get = partialmethod(request, 'GET')
+    post = partialmethod(request, 'POST')
+    put = partialmethod(request, 'PUT')
+    patch = partialmethod(request, 'PATCH')
+    delete = partialmethod(request, 'DELETE')
+    options = partialmethod(request, 'OPTIONS')
+
 
 class AsyncStealthSession(BaseStealthSession, AsyncSession):
     def __init__(self, *args, **kwargs):
@@ -164,11 +154,11 @@ class AsyncStealthSession(BaseStealthSession, AsyncSession):
         headers = self.get_dynamic_headers(url) | kwargs.pop('headers', {})
         resp = await AsyncSession.request(self, method, url, *args, headers=headers, **kwargs)
         return StealthResponse(resp)
-    
-    head = partialmethod(request, "HEAD")
-    get = partialmethod(request, "GET")
-    post = partialmethod(request, "POST")
-    put = partialmethod(request, "PUT")
-    patch = partialmethod(request, "PATCH")
-    delete = partialmethod(request, "DELETE")
-    options = partialmethod(request, "OPTIONS")
+
+    head = partialmethod(request, 'HEAD')
+    get = partialmethod(request, 'GET')
+    post = partialmethod(request, 'POST')
+    put = partialmethod(request, 'PUT')
+    patch = partialmethod(request, 'PATCH')
+    delete = partialmethod(request, 'DELETE')
+    options = partialmethod(request, 'OPTIONS')

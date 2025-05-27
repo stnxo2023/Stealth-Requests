@@ -20,10 +20,11 @@ class Metadata:
     robots: tuple[str] | None
     canonical: str | None
 
+
 PARSER_IMPORT_SOLUTION = "Install it using 'pip install stealth-requests[parsers]'."
 
 
-class StealthResponse():
+class StealthResponse:
     def __init__(self, resp):
         self._response = resp
 
@@ -59,6 +60,7 @@ class StealthResponse():
 
     def markdown(self, content_xpath: str | None = None, ignore_links: bool = True):
         from lxml import etree
+
         try:
             import html2text
         except ImportError:
@@ -70,7 +72,7 @@ class StealthResponse():
         tree = self.tree()
         if content_xpath:
             tree = tree.xpath(content_xpath)[0]
-        html = etree.tostring(tree, pretty_print=True, method="html").decode()
+        html = etree.tostring(tree, pretty_print=True, method='html').decode()
 
         return text_maker.handle(html)
 
@@ -104,14 +106,14 @@ class StealthResponse():
         canonical = tree.xpath('//head/link[@rel="canonical"]/@href')
 
         self._important_meta_tags = Metadata(
-            title = title[0] if title else None,
-            description = description[0] if description else None,
-            thumbnail = thumbnail[0] if thumbnail else None,
-            author = author[0] if author else None,
-            keywords = self._format_meta_list(keywords[0]) if keywords else None,
-            twitter_handle = twitter_handle[0] if twitter_handle else None,
-            robots =  self._format_meta_list(robots[0]) if robots else None,
-            canonical = canonical[0] if canonical else None
+            title=title[0] if title else None,
+            description=description[0] if description else None,
+            thumbnail=thumbnail[0] if thumbnail else None,
+            author=author[0] if author else None,
+            keywords=self._format_meta_list(keywords[0]) if keywords else None,
+            twitter_handle=twitter_handle[0] if twitter_handle else None,
+            robots=self._format_meta_list(robots[0]) if robots else None,
+            canonical=canonical[0] if canonical else None,
         )
         return self._important_meta_tags
 
@@ -123,7 +125,7 @@ class StealthResponse():
         formatted_links = []
 
         parsed_url = urlparse(self._response.url)
-        base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+        base_url = f'{parsed_url.scheme}://{parsed_url.netloc}'
 
         for element, _, link, _ in self.tree().iterlinks():
             if element.tag == tag:
