@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 from typing import TYPE_CHECKING
+import re
 
 if TYPE_CHECKING:
     from lxml.html import HtmlElement
@@ -147,6 +148,32 @@ class StealthResponse:
         if not self._links:
             self._links = self._parse_links('a')
         return self._links
+
+    @property
+    def emails(self) -> list[str]:
+        content = self._response.text
+
+        pattern = r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,24}'
+
+        matches = re.findall(pattern, content)
+        return list(set(matches))
+
+    @property
+    def phone_numbers(self) -> list[str]:
+        content = self._response.text
+
+        pattern = r"""
+            (?<!\d)                     # Negative lookbehind to avoid matching inside longer digit sequences
+            (?:\+1[\s\-\.]?)?           # Optional country code +1
+            (?:\(?\d{3}\)?[\s\-\.]?)    # Area code with optional parentheses
+            \d{3}                       # First 3 digits
+            [\s\-\.]?                   # Separator
+            \d{4}                       # Last 4 digits
+            (?!\d)                      # Negative lookahead to ensure no trailing digits
+        """
+
+        matches = re.findall(pattern, content, re.VERBOSE)
+        return list(set(matches))
 
     def __repr__(self):
         return f'<StealthResponse [Status: {self._response.status_code} Elapsed Time: {self._response.elapsed:.2f} seconds]>'
