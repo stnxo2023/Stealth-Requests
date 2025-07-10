@@ -23,6 +23,9 @@ parsers = [
     "html2text",
     "beautifulsoup4"
 ]
+dev = [
+    "notebook>=7.4.4",
+]
 
 [tool.setuptools.packages.find]
 include = ["stealth_requests"]
