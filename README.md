@@ -31,8 +31,6 @@
     - Automatically extract metadata (title, description, author, etc.) from HTML-based responses
     - Seamlessly convert responses into [Lxml](https://lxml.de/apidoc/lxml.html) and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) objects for more parsing
     - Easily convert full or specific sections of HTML to Markdown
-- **More:**
-  - Asyncio support
 
 
 ### Install
