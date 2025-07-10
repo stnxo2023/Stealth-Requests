@@ -2,17 +2,34 @@
     <img src="https://github.com/jpjacobpadilla/Stealth-Requests/blob/0572cdf58d141239e945a1562490b1d00054379c/logo.png?raw=true">
 </p>
 
-<h1 align="center">Stay Undetected While Scraping the Web.</h1>
+<h1 align="center">The Easiest Way to Crawl the Web</h1>
+
+<p align="center">
+    <a href="https://github.com/jpjacobpadilla/stealth-requests/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/jpjacobpadilla/stealth-requests.svg?color=green">
+    </a>
+    <a href="https://www.python.org/">
+        <img src="https://img.shields.io/badge/python-3.8%2B-green" alt="Python 3.8+">
+    </a>
+    <a href="https://pypi.org/project/stealth-requests/">
+        <img alt="PyPI" src="https://img.shields.io/pypi/v/stealth-requests.svg?color=green">
+    </a>
+    <a href="https://pepy.tech/project/stealth-requests">
+        <img alt="PyPI installs" src="https://img.shields.io/pepy/dt/stealth-requests?label=pypi%20installs&color=green">
+    </a>
+</p>
+
 
 ### The All-In-One Solution to Web Scraping:
 - **Realistic HTTP Requests:**
     - Mimics browser headers for undetected scraping, adapting to the requested file type
-    - Tracks dynamic headers such as `Referer` and `Host`
+    - Automatically rotate User Agents between requests
+    - Track `Referer` Header to make the requests look more realisitic
     - Masks the TLS fingerprint of HTTP requests using the [curl_cffi](https://curl-cffi.readthedocs.io/en/latest/) package
 - **Faster and Easier Parsing:**
+    - Built-in methods to extract emails, phone numbers, images, and links
     - Automatically extracts metadata (title, description, author, etc.) from HTML-based responses
-    - Methods to extract all webpage and image URLs
-    - Seamlessly converts responses into [Lxml](https://lxml.de/apidoc/lxml.html) and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) objects
+    - Seamlessly converts responses into [Lxml](https://lxml.de/apidoc/lxml.html) and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) objects for more parsing
 
 ### Install
 
