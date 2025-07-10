@@ -138,28 +138,28 @@ class StealthResponse:
         return tuple(formatted_links)
 
     @property
-    def images(self):
+    def images(self) ->tuple[str]:
         if not self._images:
             self._images = self._parse_links('img')
         return self._images
 
     @property
-    def links(self):
+    def links(self) -> tuple[str]:
         if not self._links:
             self._links = self._parse_links('a')
         return self._links
 
     @property
-    def emails(self) -> list[str]:
+    def emails(self) -> tuple[str]:
         content = self._response.text
 
         pattern = r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,24}'
 
         matches = re.findall(pattern, content)
-        return list(set(matches))
+        return tuple(set(matches))
 
     @property
-    def phone_numbers(self) -> list[str]:
+    def phone_numbers(self) -> tuple[str]:
         content = self._response.text
 
         pattern = r"""
@@ -173,7 +173,7 @@ class StealthResponse:
         """
 
         matches = re.findall(pattern, content, re.VERBOSE)
-        return list(set(matches))
+        return tuple(set(matches))
 
     def __repr__(self):
         return f'<StealthResponse [Status: {self._response.status_code} Elapsed Time: {self._response.elapsed:.2f} seconds]>'
