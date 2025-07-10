@@ -175,7 +175,7 @@ resp = requests.get('https://link-here.com', proxies=proxies)
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
-Before submitting a pull request, please format the your code with Ruff `uvx ruff format stealth_requests/`
+Before submitting a pull request, please format the your code with Ruff: `uvx ruff format stealth_requests/`
 
 
 [↑ Back to top](#table-of-contents)
