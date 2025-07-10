@@ -31,7 +31,7 @@ dev = [
 include = ["stealth_requests"]
 
 [tool.setuptools.package-data]
-stealth_requests = ["profiles.json"]
+stealth_requests = ["user_agents.json"]
 
 [tool.ruff]
 line-length = 120
