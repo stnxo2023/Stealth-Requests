@@ -14,7 +14,7 @@
     - Tracks and updates the `Referer` header to simulate realistic request chains
     - Built-in retry logic for failed requests (e.g. 429, 503, 522)
 - **Faster and Easier Parsing:**
-    - Extract emails, phone numbers, images, and links with simple methods
+    - Extract emails, phone numbers, images, and links from responses
     - Automatically extract metadata (title, description, author, etc.) from HTML-based responses
     - Seamlessly convert responses into [Lxml](https://lxml.de/apidoc/lxml.html) and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) objects for more parsing
     - Easily convert full or specific sections of HTML to Markdown
