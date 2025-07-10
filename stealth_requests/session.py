@@ -34,14 +34,9 @@ with user_agents_path.open() as f:
 
 class BaseStealthSession:
     def __init__(self, **kwargs):
-        # For the "Referer" header
         self.last_request_url = 'https://www.google.com/'
 
-        # Having some sort of timeout is important so that the request does not hang indefinitely
-        if 'timeout' in kwargs:
-            timeout = kwargs.pop('timeout')
-        else:
-            timeout = 30
+        timeout = kwargs.pop('timeout', 30)
 
         headers = kwargs.pop("headers", {})
         headers.setdefault("User-Agent", random.choice(user_agents))
