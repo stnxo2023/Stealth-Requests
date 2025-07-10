@@ -27,7 +27,7 @@ RETRYABLE_STATUS_CODES = {
 }
 
 
-user_agents_path = Path(__file__).parent / "user_agents.json"
+user_agents_path = Path(__file__).parent / 'user_agents.json'
 with user_agents_path.open() as f:
     user_agents = json.load(f)
 
@@ -38,8 +38,8 @@ class BaseStealthSession:
 
         timeout = kwargs.pop('timeout', 30)
 
-        headers = kwargs.pop("headers", {})
-        headers.setdefault("User-Agent", random.choice(user_agents))
+        headers = kwargs.pop('headers', {})
+        headers.setdefault('User-Agent', random.choice(user_agents))
 
         super().__init__(impersonate='chrome', timeout=timeout, headers=headers, **kwargs)
 
@@ -48,21 +48,14 @@ class StealthSession(BaseStealthSession, Session):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def request(
-        self,
-        method: HttpMethod,
-        url: str,
-        *args,
-        retry: int = 0,
-        **kwargs
-    ) -> StealthResponse:
+    def request(self, method: HttpMethod, url: str, *args, retry: int = 0, **kwargs) -> StealthResponse:
         assert retry >= 0
 
         extra_headers = {'Referer': self.last_request_url} | kwargs.pop('headers', {})
 
         for attempt in range(retry + 1):
             resp = super().request(method, url, *args, headers=extra_headers, **kwargs)
-            response =  StealthResponse(resp)
+            response = StealthResponse(resp)
 
             if resp.status_code not in RETRYABLE_STATUS_CODES or attempt == retry:
                 break
@@ -88,21 +81,14 @@ class AsyncStealthSession(BaseStealthSession, AsyncSession):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    async def request(
-        self,
-        method: HttpMethod,
-        url: str,
-        *args,
-        retry: int = 0,
-        **kwargs
-    ) -> StealthResponse:
+    async def request(self, method: HttpMethod, url: str, *args, retry: int = 0, **kwargs) -> StealthResponse:
         assert retry >= 0
 
         extra_headers = {'Referer': self.last_request_url} | kwargs.pop('headers', {})
 
         for attempt in range(retry + 1):
             resp = await super().request(method, url, *args, headers=extra_headers, **kwargs)
-            response =  StealthResponse(resp)
+            response = StealthResponse(resp)
 
             if resp.status_code not in RETRYABLE_STATUS_CODES or attempt == retry:
                 break
@@ -114,7 +100,6 @@ class AsyncStealthSession(BaseStealthSession, AsyncSession):
         self.last_request_url = urlunparse(parsed._replace(query='', fragment=''))
 
         return response
-
 
     head = partialmethod(request, 'HEAD')
     get = partialmethod(request, 'GET')

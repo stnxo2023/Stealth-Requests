@@ -144,7 +144,7 @@ class StealthResponse:
         return self._important_meta_tags or self._set_important_meta_tags()
 
     @property
-    def images(self) ->tuple[str]:
+    def images(self) -> tuple[str]:
         if not self._images:
             self._images = self._parse_links('img')
         return self._images
