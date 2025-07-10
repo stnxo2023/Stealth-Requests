@@ -4,7 +4,7 @@
 
 <h1 align="center">The Easiest Way to Scrape the Web</h1>
 
-<p align="center"><a href="https://github.com/jpjacobpadilla/stealth-requests/blob/main/LICENSE"><img src="https://img.shields.io/github/license/jpjacobpadilla/stealth-requests.svg?color=green"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.9%2B-green" alt="Python 3.8+"></a> <a href="https://pypi.org/project/stealth-requests/"><img alt="PyPI" src="https://img.shields.io/pypi/v/stealth-requests.svg?color=green"></a> <a href="https://pepy.tech/project/stealth-requests"><img alt="PyPI installs" src="https://img.shields.io/pepy/dt/stealth-requests?label=pypi%20installs&color=green"></a></p>
+<p align="center"><a href="https://github.com/jpjacobpadilla/stealth-requests/blob/main/LICENSE"><img src="https://img.shields.io/github/license/jpjacobpadilla/stealth-requests.svg?color=green"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.9%2B-green" alt="Python 3.8+"></a> <a href="https://pypi.org/project/stealth-requests/"><img alt="PyPI" src="https://img.shields.io/pypi/v/stealth-requests.svg?color=green"></a> <a href="https://pepy.tech/project/stealth-requests"><img alt="Downloads/month" src="[![PyPI Downloads](https://static.pepy.tech/badge/stealth-requests/month)](https://pepy.tech/projects/stealth-requests)?color=green"></a></p>
 
 
 ### Features
