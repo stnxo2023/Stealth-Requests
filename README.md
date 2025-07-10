@@ -2,7 +2,7 @@
     <img src="https://github.com/jpjacobpadilla/Stealth-Requests/blob/173df6b8a8ef53bd1fd514b85291c5f98530a462/logo.png?raw=true">
 </p>
 
-<h1 align="center">The Easiest Way to Crawl the Web</h1>
+<h1 align="center">The Easiest Way to Scrape the Web</h1>
 
 <p align="center">
     <a href="https://github.com/jpjacobpadilla/stealth-requests/blob/main/LICENSE">
