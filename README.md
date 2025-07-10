@@ -129,7 +129,7 @@ print(resp.links)
 
 ### More Parsing Options
 
-To make parsing HTML faster, I've also added two popular parsing packages to Stealth-Requests - Lxml and BeautifulSoup4. To use these add-ons you need to install the `parsers` extra: 
+To make parsing HTML faster, I've also added two popular parsing packages to Stealth-Requests: Lxml and BeautifulSoup4. To use these add-ons, you need to install the `parsers` extra:
 
 ```
 $ pip install 'stealth_requests[parsers]'
@@ -140,7 +140,7 @@ To easily get an Lxml tree, you can use `resp.tree()` and to get a BeautifulSoup
 For simple parsing, I've also added the following convenience methods, from the Lxml package, right into the `StealthResponse` object:
 
 - `text_content()`: Get all text content in a response
-- `xpath()` Go right to using XPath expressions instead of getting your own Lxml tree.
+- `xpath()`: Go right to using XPath expressions instead of getting your own Lxml tree.
 
 
 ### Converting Responses to Markdown
@@ -175,7 +175,7 @@ resp = requests.get('https://link-here.com', proxies=proxies)
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
-Before submitting a pull request, please format the your code with Ruff: `uvx ruff format stealth_requests/`
+Before submitting a pull request, please format your code with Ruff: `uvx ruff format stealth_requests/`
 
 
 [↑ Back to top](#table-of-contents)
