@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/jpjacobpadilla/Stealth-Requests/blob/0572cdf58d141239e945a1562490b1d00054379c/logo.png?raw=true">
+    <img src="https://github.com/jpjacobpadilla/Stealth-Requests/blob/173df6b8a8ef53bd1fd514b85291c5f98530a462/logo.png?raw=true">
 </p>
 
 <h1 align="center">The Easiest Way to Crawl the Web</h1>
