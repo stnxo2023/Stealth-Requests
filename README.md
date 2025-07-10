@@ -76,7 +76,7 @@ Stealth-Requests supports Asyncio in the same way as the `requests` package:
 ```python
 from stealth_requests import AsyncStealthSession
 
-async with AsyncStealthSession(impersonate='safari') as session:
+async with AsyncStealthSession() as session:
     resp = await session.get('https://link-here.com')
 ```
 
