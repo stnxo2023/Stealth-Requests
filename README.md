@@ -4,7 +4,7 @@
 
 <h1 align="center">The Easiest Way to Scrape the Web</h1>
 
-<p align="center"><a href="https://github.com/jpjacobpadilla/stealth-requests/blob/main/LICENSE"><img src="https://img.shields.io/github/license/jpjacobpadilla/stealth-requests.svg?color=blue"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python 3.8+"></a> <a href="https://pypi.org/project/stealth-requests/"><img alt="PyPI" src="https://img.shields.io/pypi/v/stealth-requests.svg?color=blue"></a> <a href="https://pepy.tech/projects/stealth-requests"><img src="https://static.pepy.tech/badge/stealth-requests/month" alt="PyPI Downloads"></a></p>
+<p align="center"><a href="https://github.com/jpjacobpadilla/stealth-requests/blob/main/LICENSE"><img src="https://img.shields.io/github/license/jpjacobpadilla/stealth-requests.svg?color=green"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.9%2B-green" alt="Python 3.8+"></a> <a href="https://pypi.org/project/stealth-requests/"><img alt="PyPI" src="https://img.shields.io/pypi/v/stealth-requests.svg?color=green"></a> <a href="https://pepy.tech/project/stealth-requests"><img alt="PyPI installs" src="https://img.shields.io/pepy/dt/stealth-requests?label=pypi%20installs&color=green"></a></p>
 
 
 ### Features
@@ -42,7 +42,7 @@ $ pip install stealth_requests
 
 Stealth-Requests mimics the API of the [requests](https://requests.readthedocs.io/en/latest/) package, allowing you to use it in nearly the same way.
 
-You can send one-off requests like such:
+You can send one-off requests like this:
 
 ```python
 import stealth_requests as requests
@@ -59,9 +59,9 @@ with StealthSession() as session:
     resp = session.get('https://link-here.com')
 ```
 
-When sending a request, or creating a `StealthSession`, you can specify the type of browser that you want the request to mimic - either `chrome`, which is the default, or `safari`. If you want to change which browser to mimic, set the `impersonate` argument, either in `requests.get` or when initializing `StealthSession` to `safari` or `chrome`.
+Stealth-Requests has a built-in retry feature that automatically waits 2 seconds and retries the request if it fails due to certain status codes (like 429, 503, etc.).
 
-You can also specify how many times to retry the request on failed requests!
+To enable retries, just pass the number of retry attempts using the `retry` argument:
 
 ```python
 import stealth_requests as requests
@@ -71,21 +71,13 @@ resp = requests.get('https://link-here.com', retry=3)
 
 ### Sending Requests With Asyncio
 
-This package supports Asyncio in the same way as the `requests` package:
+Stealth-Requests supports Asyncio in the same way as the `requests` package:
 
 ```python
 from stealth_requests import AsyncStealthSession
 
 async with AsyncStealthSession(impersonate='safari') as session:
     resp = await session.get('https://link-here.com')
-```
-
-or, for a one-off request, you can make a request like this:
-
-```python
-import stealth_requests as requests
-
-resp = await requests.get('https://link-here.com', impersonate='safari')
 ```
 
 
@@ -114,19 +106,7 @@ print(resp.meta.title)
 
 ### Extracting Emails, Phone Numbers, Images, and Links
 
-If you would like to get all of the webpage URLs (`a` tags) from an HTML-based response, you can use the `links` property. If you'd like to get all image URLs (`img` tags) you can use the `images` property from a response object.
-
-```python
-import stealth_requests as requests
-
-resp = requests.get('https://link-here.com')
-for image_url in resp.images:
-    # ...
-```
-
-Stealth-Requests also includes built-in methods for extracting emails and phone numbers from the raw HTML of a page. These methods use simple regex patterns to return a de-duplicated list of matches.
-
-You can access them with the `.emails` and `.phone_numbers` properties:
+The `StealthResponse` object includes some helpful properties for extracting common data:
 
 ```python
 import stealth_requests as requests
@@ -134,10 +114,16 @@ import stealth_requests as requests
 resp = requests.get('https://link-here.com')
 
 print(resp.emails)
-# ('hello@example.com', 'contact@site.com')
+# Output: ('info@example.com', 'support@example.com')
 
 print(resp.phone_numbers)
-# ('(212) 555-1234', '+1-800-123-4567')
+# Output: ('+1 (800) 123-4567', '212-555-7890')
+
+print(resp.images)
+# Output: ('https://example.com/logo.png', 'https://cdn.example.com/banner.jpg')
+
+print(resp.links)
+# Output: ('https://example.com/about', 'https://example.com/contact')
 ```
 
 
@@ -164,16 +150,14 @@ In some cases, it’s easier to work with a webpage in Markdown format rather th
 `markdown()` has two optional parameters:
 
 1. `content_xpath` An XPath expression, in the form of a string, which can be used to narrow down what text is converted to Markdown. This can be useful if you don't want the header and footer of a webpage to be turned into Markdown.
-2. `ignore_links` A boolean value that tells Html2Text whether to include links in the Markdown output.
+2. `ignore_links` A boolean value that tells `Html2Text` whether to include links in the Markdown output.
 
 
 ### Using Proxies
 
+Stealth-Requests supports proxy usage through a `proxies` dictionary argument, similar to the standard requests package.
 
-Stealth-Requests supports proxy usage through a `proxies` dictionary, similar to the standard requests package.
-
-
-You can pass both http and https proxy URLs when making a request:
+You can pass both HTTP and HTTPS proxy URLs when making a request:
 
 ```python
 import stealth_requests as requests
