@@ -9,7 +9,7 @@
 
 ### Features
 - **Realistic HTTP Requests:**
-    - Mimics the Chrome browser for undetected scraping using the [curl_cffi](https://curl-cffi.readthedocs.io/en/latest/) package
+    - Mimics Chrome browser for undetected scraping using [curl_cffi](https://curl-cffi.readthedocs.io/en/latest/)
     - Automatically rotates User Agents between requests
     - Tracks and updates the `Referer` header to simulate realistic request chains
     - Built-in retry logic for failed requests (e.g. 429, 503, 522)
