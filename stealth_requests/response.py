@@ -26,8 +26,9 @@ PARSER_IMPORT_SOLUTION = "Install it using 'pip install stealth-requests[parsers
 
 
 class StealthResponse:
-    def __init__(self, resp):
+    def __init__(self, resp, elapsed):
         self._response = resp
+        self._elapsed = elapsed
 
         self._tree: HtmlElement | None = None
         self._important_meta_tags: Metadata | None = None
@@ -38,7 +39,7 @@ class StealthResponse:
         return getattr(self._response, name)
 
     def __repr__(self):
-        return f'<StealthResponse [Status: {self._response.status_code} Elapsed Time: {self._response.elapsed:.2f} seconds]>'
+        return f'<StealthResponse [Status: {self._response.status_code} Elapsed Time: {self._elapsed:.2f} seconds]>'
 
     def _get_tree(self) -> HtmlElement:
         try:
