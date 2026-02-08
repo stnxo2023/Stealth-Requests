@@ -10,6 +10,7 @@ URL = 'https://httpbin.org'
 
 # --- Sync ---
 
+
 def test_get():
     resp = stealth.get(f'{URL}/get')
     assert resp.status_code == 200
@@ -44,6 +45,7 @@ def test_session_has_user_agent():
 
 
 # --- Async ---
+
 
 @pytest.mark.asyncio
 async def test_async_get():
