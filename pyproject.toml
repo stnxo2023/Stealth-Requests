@@ -42,6 +42,9 @@ select = ["I", "TID"]
 [tool.ruff.format]
 quote-style = "single"
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [dependency-groups]
 dev = [
     "lxml>=6.0.0",
