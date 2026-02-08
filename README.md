@@ -33,6 +33,7 @@ $ pip install stealth_requests
 - [Sending Requests With Asyncio](#sending-requests-with-asyncio)
 - [Accessing Page Metadata](#accessing-page-metadata)
 - [Extracting Emails, Phone Numbers, Images, and Links](#extracting-emails-phone-numbers-images-and-links)
+- [Extracting HTML Tables](#extracting-html-tables)
 - [More Parsing Options](#more-parsing-options)
 - [Converting Responses to Markdown](#converting-responses-to-markdown)
 - [Using Proxies](#using-proxies)
@@ -125,6 +126,33 @@ print(resp.images)
 print(resp.links)
 # Output: ('https://example.com/about', 'https://example.com/contact')
 ```
+
+
+### Extracting HTML Tables
+
+The `StealthResponse` object can parse HTML tables into dictionaries, where each key is a column header and the value is a list of that column's cell values.
+
+For example, given a page with this table:
+
+| Name  | Age |
+|-------|-----|
+| Jacob | 30  |
+| Jake  | 25  |
+
+You can extract it like this:
+
+```python
+import stealth_requests as requests
+
+resp = requests.get('https://link-here.com')
+
+# Each table becomes a dict: {column_name: [values]}
+for table in resp.tables:
+    print(table)
+# Output: {'Name': ['Jacob', 'Jake'], 'Age': ['30', '25']}
+```
+
+Tables without recognizable headers are automatically skipped.
 
 
 ### More Parsing Options
