@@ -241,7 +241,7 @@ class TestTables:
         </body></html>
         """
         resp = make_response(html)
-        assert resp.tables[0]['Symbol'] == ["AT&T", "O'Reilly"]
+        assert resp.tables[0]['Symbol'] == ['AT&T', "O'Reilly"]
         assert resp.tables[0]['Price'] == ['$25.50', '\u20ac30.00']
 
     def test_nested_table_parsed_separately(self):
