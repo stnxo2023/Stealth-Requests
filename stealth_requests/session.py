@@ -41,7 +41,7 @@ class BaseStealthSession:
 
         self.last_request_url = None
 
-        super().__init__(impersonate='chrome', timeout=timeout, headers=headers, **kwargs)
+        super().__init__(impersonate='chrome136', timeout=timeout, headers=headers, **kwargs)
 
 
 class StealthSession(BaseStealthSession, Session):
